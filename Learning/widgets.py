@@ -1,5 +1,6 @@
 import sys
 
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -23,11 +24,14 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from gui_utils import *
+
+init_windows_appid("widgets")
+icon_path = get_resource_path("resources/logo.ico")
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
-        self.setWindowTitle("Widgets App")
 
         layout = QVBoxLayout()
         widgets = [
@@ -59,5 +63,7 @@ class MainWindow(QMainWindow):
 
 app = QApplication(sys.argv)
 window = MainWindow()
+window.setWindowTitle("Widgets")
+window.setWindowIcon(QIcon(icon_path))
 window.show()
 app.exec()

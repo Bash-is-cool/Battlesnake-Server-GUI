@@ -18,6 +18,11 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from gui_utils import *
+
+init_windows_appid("individual.widgets")
+icon_path = get_resource_path("resources/logo.ico")
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -87,7 +92,7 @@ class MainWindow(QMainWindow):
         # self.setCentralWidget(self.dial)
 
         self.image = QLabel()
-        self.image.setPixmap(QPixmap("resources/logo.png"))
+        self.image.setPixmap(QPixmap(icon_path))
         self.setCentralWidget(self.image)
 
     def show_state(self, state):
@@ -95,8 +100,9 @@ class MainWindow(QMainWindow):
         print(state)
 
 app = QApplication(sys.argv)
-app.setWindowIcon(QIcon("resources/logo.png"))
 
 window = MainWindow()
+window.setWindowTitle("Individual Widgets")
+window.setWindowIcon(QIcon(icon_path))
 window.show()
 app.exec()
