@@ -1,20 +1,17 @@
 import os
 import sys
 
+
 def get_resource_path(relative_path):
-    """
-    Get absolute path to resource, works for dev and for PyInstaller.\\
-    - Dev: script is in /Learning, resources in /resources
-    - Bundled: Everything is in the root or _MEIPASS
-    """
-    try:
-        # PyInstaller creates a temp folder and stores path in _MEIPASS
+    if hasattr(sys, "_MEIPASS"):
         base_path = sys._MEIPASS
-    except Exception:
-        # If running as script in /Directory, go up one level to find /resources
-        # If the script calling this is in the ROOT, remove the second dirname
-        caller_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
-        base_path = os.path.dirname(caller_dir)
+    else:
+        base_path = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+        if not os.path.exists(os.path.join(base_path, relative_path)):
+            parent_dir = os.path.dirname(base_path)
+            if os.path.exists(os.path.join(parent_dir, relative_path)):
+                base_path = parent_dir
 
     return os.path.normpath(os.path.join(base_path, relative_path))
 
