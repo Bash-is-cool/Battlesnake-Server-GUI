@@ -26,3 +26,6 @@ def init_windows_appid(appid: str):
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(appid)
         except Exception as e:
             print(f"Failed to set Windows AppID: {e}")
+
+init_windows_appid("individual.widgets")
+icon_path = get_resource_path("resources/logo.ico")
