@@ -429,7 +429,7 @@ class BattlesnakeOrchestrator(QMainWindow):
             QMessageBox.warning(self, "Password Required", "Please enter the Pi password first.")
             return
 
-        file_path, _ = QFileDialog.getOpenFileName(self, "Select Snake Script", "", "Python Files (*.py)")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Select Snake Script", "", "")
         if file_path:
             filename = os.path.basename(file_path)
 
@@ -441,7 +441,7 @@ class BattlesnakeOrchestrator(QMainWindow):
 
             if not remote_dir.endswith('/'):
                 remote_dir += '/'
-            remote_path = f"{remote_dir}{filename}"
+            remote_path = f"{remote_dir}"
 
             self.update_log(f"Starting upload to: {remote_path}")
             self.update_connection_status("busy")
