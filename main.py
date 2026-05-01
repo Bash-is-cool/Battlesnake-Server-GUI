@@ -14,6 +14,27 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
                                QSpinBox, QGroupBox, QCheckBox)
 from PySide6.QtCore import QThread, Signal, Slot, Qt
 
+def check_local():
+    temp_app = QApplication(sys.argv)
+    temp_app.setWindowIcon(QIcon(gui_utils.icon_path))
+    
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Question)
+    msg.setWindowTitle("Run Mode")
+    msg.setText("How would you like to run the orchestrator?")
+    msg.setInformativeText("Running locally is recommended for most users. Running on the Pi requires additional setup and is intended for advanced users.")
+    msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+    msg.setButtonText(QMessageBox.Yes, "Locally (Recommended)")
+    msg.setButtonText(QMessageBox.No, "On the Pi (Advanced)")
+
+    if msg.exec() == QMessageBox.Yes:
+        temp_app.deleteLater()  # Close the temporary app
+    else:
+        QMessageBox.critical(None, "Critical Error", "Application cannot run without Paramiko.")
+        sys.exit(1)
+
+check_local()
+
 def check_and_install_dependencies():
     """Checks for paramiko and prompts user to install if missing."""
     try:
