@@ -20,7 +20,7 @@ def check_local_windows_deps():
     missing = []
 
     # Check Battlesnake CLI (Checks for both .exe and raw command)
-    if shutil.which("battlesnake.exe") is None and shutil.which("battlesnake") is None:
+    if shutil.which("battlesnake") is None:
         missing.append("• Battlesnake CLI (Download the .exe and add to PATH)")
 
     # Check Docker
